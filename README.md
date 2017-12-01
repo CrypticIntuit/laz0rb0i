@@ -1,3 +1,3 @@
 # laz0rb0i
-lazers
-wowWowoWWOWWOwowoWoWOWoWoWOwoWoWoWow lazers
+
+An embedded system that converts audio signals into lazer shows utilizing Fast Fourier Transforms.
