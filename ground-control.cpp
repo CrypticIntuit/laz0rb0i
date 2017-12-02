@@ -76,7 +76,7 @@ int main() {
 			}
 			if (arg2 < 0) {
 				arg2 = 0;
-			} else if (arg2 = 100) {
+			} else if (arg2 < 100) {
 				arg2 = 100;
 			}
 		}
