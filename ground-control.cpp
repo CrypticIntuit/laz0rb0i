@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <stdlib.h>
+#include <stdio.h>
 using namespace std;
 
 const int DIR_CW = 0;
@@ -76,7 +78,7 @@ int main() {
 			}
 			if (arg2 < 0) {
 				arg2 = 0;
-			} else if (arg2 < 100) {
+			} else if (arg2 > 100) {
 				arg2 = 100;
 			}
 		}
@@ -139,20 +141,25 @@ int main() {
 		}
 
 		else if (command == "speed") {
+			string strArg;
+			stringstream convert;
+			convert << arg2;
+			strArg = convert.str();
+
 			if (arg == 1) {
-				string pwm_command = "fast-gpio pwm 2 6000 " + to_string(arg2);
+				string pwm_command = "fast-gpio pwm 2 6000 " + strArg;
 				cout << "Setting speed of motor 1 to " << arg2 << endl;
 				const char *c_command = pwm_command.c_str();
 				system(c_command);
 			} else if (arg == 2) {
-				string pwm_command = "fast-gpio pwm 3 6000 " + to_string(arg2);
+				string pwm_command = "fast-gpio pwm 3 6000 " + strArg;
 				cout << "Setting speed of motor 2 to " << arg2 << endl;
 				const char *c_command = pwm_command.c_str();
 				system(c_command);
 			} else if (arg == 3) {
 				cout << "Setting all motor speeds to " << arg2 << endl;
-				string pwm_command1 = "fast-gpio pwm 2 6000 " + to_string(arg2);
-				string pwm_command2 = "fast-gpio pwm 3 6000 " + to_string(arg2);
+				string pwm_command1 = "fast-gpio pwm 2 6000 " + strArg;
+				string pwm_command2 = "fast-gpio pwm 3 6000 " + strArg;
 				const char *c_command1 = pwm_command1.c_str();
 				const char *c_command2 = pwm_command2.c_str();
 				system(c_command1);
