@@ -63,7 +63,7 @@ int main() {
 			arg2 = "\0";
 		} else {
 			string args = input.erase(0, delimIndex + delim.length());
-			int *iargs = getArgs(args, delim);
+			string *iargs = getArgs(args, delim);
 			arg = iargs[0];
 			arg2 = iargs[1];
 		}
