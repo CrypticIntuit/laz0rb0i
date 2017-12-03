@@ -3,6 +3,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 using namespace std;
 
 #include "utils.cpp"
@@ -55,26 +56,16 @@ int main() {
 
 		delimIndex = input.find(delim);
 		string command = input.substr(0, delimIndex);
-		int arg;
-		int arg2;
+		string arg;
+		string arg2;
 		if (command.length() == input.length()) {
-			arg = 0;
-			arg2 = 0;
+			arg = "\0";
+			arg2 = "\0";
 		} else {
 			string args = input.erase(0, delimIndex + delim.length());
 			int *iargs = getArgs(args, delim);
 			arg = iargs[0];
 			arg2 = iargs[1];
-			if (arg < 1) {
-				arg = 1;
-			} else if (arg > 2) {
-				arg = 2;
-			}
-			if (arg2 < 0) {
-				arg2 = 0;
-			} else if (arg2 > 100) {
-				arg2 = 100;
-			}
 		}
 
 
@@ -89,13 +80,13 @@ int main() {
 
 		// RUN
 		else if (command == "run") {
-			if (arg == 1) {
+			if (arg == "1") {
 				cout << "Ran 1" << endl;
 				system("fast-gpio set 2 1");
-			} else if (arg == 2) {
+			} else if (arg == "2") {
 				cout << "Ran 2" << endl;
 				system("fast-gpio set 3 1");
-			} else if (arg == 3) {
+			} else if (arg == "all") {
 				cout << "Ran all" << endl;
 				system("fast-gpio set 2 1");
 				system("fast-gpio set 3 1");
@@ -106,54 +97,71 @@ int main() {
 
 		// REVERSE
 		else if (command == "reverse") {
-			if (arg == 1) {
-				if (dirA == 0) {
+			if (arg == "1") {
+				if (dirB == 0) {
 					system("fast-gpio set 0 1");
 					system("fast-gpio set 1 0");
-					dirA = 1;
+					dirB = 1;
 				} else {
 					system("fast-gpio set 0 0");
 					system("fast-gpio set 1 1");
-					dirA = 0;
+					dirB = 0;
 				}
-			} else if (arg == 2) {
-				if (dirB == 0) {
+			} else if (arg == "2") {
+				if (dirA == 0) {
 					system("fast-gpio set 19 0");
 					system("fast-gpio set 18 1");
-					dirB = 1;
+					dirA = 1;
 				} else {
 					system("fast-gpio set 19 1");
 					system("fast-gpio set 18 0");
+					dirA = 0;
+				}
+			} else if (arg == "all") {
+				if (dirB == 0) {
+					system("fast-gpio set 0 1");
+					system("fast-gpio set 1 0");
+					dirB = 1;
+				} else {
+					system("fast-gpio set 0 0");
+					system("fast-gpio set 1 1");
 					dirB = 0;
 				}
-			} else if (arg == 3) {
-				system("fast-gpio set 2 1");
-				system("fast-gpio set 3 1");
+				if (dirA == 0) {
+					system("fast-gpio set 19 0");
+					system("fast-gpio set 18 1");
+					dirA = 1;
+				} else {
+					system("fast-gpio set 19 1");
+					system("fast-gpio set 18 0");
+					dirA = 0;
+				}
 			} else {
 				cout << "Usage: reverse <motor_number>" << endl;
 			}
 		}
 
+		// SPEED
 		else if (command == "speed") {
 			string strArg;
 			stringstream convert;
 			convert << arg2;
 			strArg = convert.str();
 
-			if (arg == 1) {
+			if (arg == "1") {
 				string pwm_command = "fast-gpio pwm 2 6000 " + strArg;
 				cout << "Setting speed of motor 1 to " << arg2 << endl;
 				const char *c_command = pwm_command.c_str();
 				system(c_command);
-			} else if (arg == 2) {
-				string pwm_command = "fast-gpio pwm 3 6000 " + strArg;
+			} else if (arg == "2") {
+				string pwm_command = "fast-gpio pwm 3 6000 " + arg2;
 				cout << "Setting speed of motor 2 to " << arg2 << endl;
 				const char *c_command = pwm_command.c_str();
 				system(c_command);
-			} else if (arg == 3) {
+			} else if (arg == "all") {
 				cout << "Setting all motor speeds to " << arg2 << endl;
-				string pwm_command1 = "fast-gpio pwm 2 6000 " + strArg;
-				string pwm_command2 = "fast-gpio pwm 3 6000 " + strArg;
+				string pwm_command1 = "fast-gpio pwm 2 6000 " + arg2;
+				string pwm_command2 = "fast-gpio pwm 3 6000 " + arg2;
 				const char *c_command1 = pwm_command1.c_str();
 				const char *c_command2 = pwm_command2.c_str();
 				system(c_command1);
@@ -165,18 +173,60 @@ int main() {
 
 		// STOP
 		else if (command == "stop") {
-			if (arg == 1) {
+			if (arg == "1") {
 				cout << "Stopped 1" << endl;
 				system("fast-gpio set 2 0");
-			} else if (arg == 2) {
+			} else if (arg == "2") {
 				cout << "Stopped 2" << endl;
 				system("fast-gpio set 3 0");
-			} else if (arg == 3) {
+			} else if (arg == "all") {
 				cout << "Stopped all" << endl;
 				system("fast-gpio set 2 0");
 				system("fast-gpio set 3 0");
 			} else {
 				cout << "Usage: stop <motor_number>" << endl;
+			}
+		}
+
+		// STRING
+		else if (command == "string") {
+			char* charArray = placeholder(arg); // Yitharth's function (to be added later)
+			int index = 0;
+			int speedA;
+			int speedB;
+			while (charArray[index + 1] != '\0') {
+				dirA = getdir(charArray[index]); // Omar's function (to be added later)
+				speedB = getspeed(charArray[index]); // ^^
+				dirB = getdir(charArray[index + 1]); // ^^
+				speedB = getspeed(charArray[index + 1]); // ^^
+				if (dirA == 0) {
+					system("fast-gpio set 0 1");
+					system("fast-gpio set 1 0");
+					dirA = 1;
+				} else {
+					system("fast-gpio set 0 0");
+					system("fast-gpio set 1 1");
+					dirA = 0;
+				}
+				if (dirB == 0) {
+					system("fast-gpio set 19 0");
+					system("fast-gpio set 18 1");
+					dirB = 1;
+				} else {
+					system("fast-gpio set 19 1");
+					system("fast-gpio set 18 0");
+					dirB = 0;
+				}
+				string pwm_commandA = "fast-gpio pwm 3 6000 " + strArgA;
+				cout << "Setting speed of motor 1 to " << speedA << endl;
+				const char *c_commandA = pwm_commandA.c_str();
+				system(c_commandA);
+				string pwm_commandB = "fast-gpio pwm 2 6000 " + strArgB;
+				cout << "Setting speed of motor 1 to " << speedB << endl;
+				const char *c_commandB = pwm_commandB.c_str();
+				system(c_commandB);
+				usleep(2000000);
+				index++;
 			}
 		}
 
