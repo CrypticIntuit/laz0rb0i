@@ -194,11 +194,19 @@ int main() {
 			int index = 0;
 			int speedA;
 			int speedB;
+			string strArgA;
+			stringstream convertA;
+			string strArgB;
+			stringstream convertB;
 			while (charArray[index + 1] != '\0') {
 				dirA = getdir(charArray[index]); // Omar's function (to be added later)
-				speedB = getspeed(charArray[index]); // ^^
+				speedA = getspeed(charArray[index]); // ^^
 				dirB = getdir(charArray[index + 1]); // ^^
 				speedB = getspeed(charArray[index + 1]); // ^^
+				convertA << speedA;
+				strArgA = convertA.str();
+				convertB << speedB;
+				strArgB = convertB.str();
 				if (dirA == 0) {
 					system("fast-gpio set 0 1");
 					system("fast-gpio set 1 0");
