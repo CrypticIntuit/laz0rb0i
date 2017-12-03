@@ -3,24 +3,15 @@
 #include <sstream>
 #include <stdlib.h>
 #include <stdio.h>
-
-#include "utils.h"
-#include "lazorboi.h"
 using namespace std;
+
+#include "utils.cpp"
+#include "lazorboi.cpp"
 
 const int DIR_CW = 0;
 const int DIR_CCW = 1;
 const int FREQ = 6000;
 const string delim = " ";
-
-string* getArgs(string input) {
-	int delimIndex = 0;
-	string *args = new string [2];
-	delimIndex = input.find(delim);
-	args[0] = input.substr(0, delimIndex);
-	args[1] = input.erase(0, delimIndex + delim.length());
-	return args;
-}
 
 int main() {
 
@@ -71,7 +62,7 @@ int main() {
 			arg2 = "\0";
 		} else {
 			string args = input.erase(0, delimIndex + delim.length());
-			string *iargs = getArgs(args);
+			int *iargs = getArgs(args, delim);
 			arg = iargs[0];
 			arg2 = iargs[1];
 		}
