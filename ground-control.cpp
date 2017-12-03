@@ -98,43 +98,43 @@ int main() {
 		// REVERSE
 		else if (command == "reverse") {
 			if (arg == "1") {
-				if (dirA == 0) {
+				if (dirB == 0) {
 					system("fast-gpio set 0 1");
 					system("fast-gpio set 1 0");
-					dirA = 1;
+					dirB = 1;
 				} else {
 					system("fast-gpio set 0 0");
 					system("fast-gpio set 1 1");
-					dirA = 0;
+					dirB = 0;
 				}
 			} else if (arg == "2") {
-				if (dirB == 0) {
+				if (dirA == 0) {
 					system("fast-gpio set 19 0");
 					system("fast-gpio set 18 1");
-					dirB = 1;
+					dirA = 1;
 				} else {
 					system("fast-gpio set 19 1");
 					system("fast-gpio set 18 0");
-					dirB = 0;
+					dirA = 0;
 				}
 			} else if (arg == "all") {
-				if (dirA == 0) {
+				if (dirB == 0) {
 					system("fast-gpio set 0 1");
 					system("fast-gpio set 1 0");
-					dirA = 1;
+					dirB = 1;
 				} else {
 					system("fast-gpio set 0 0");
 					system("fast-gpio set 1 1");
-					dirA = 0;
+					dirB = 0;
 				}
-				if (dirB == 0) {
+				if (dirA == 0) {
 					system("fast-gpio set 19 0");
 					system("fast-gpio set 18 1");
-					dirB = 1;
+					dirA = 1;
 				} else {
 					system("fast-gpio set 19 1");
 					system("fast-gpio set 18 0");
-					dirB = 0;
+					dirA = 0;
 				}
 			} else {
 				cout << "Usage: reverse <motor_number>" << endl;
@@ -149,12 +149,12 @@ int main() {
 			strArg = convert.str();
 
 			if (arg == "1") {
-				string pwm_command = "fast-gpio pwm 3 6000 " + strArg;
+				string pwm_command = "fast-gpio pwm 2 6000 " + strArg;
 				cout << "Setting speed of motor 1 to " << arg2 << endl;
 				const char *c_command = pwm_command.c_str();
 				system(c_command);
 			} else if (arg == "2") {
-				string pwm_command = "fast-gpio pwm 2 6000 " + arg2;
+				string pwm_command = "fast-gpio pwm 3 6000 " + arg2;
 				cout << "Setting speed of motor 2 to " << arg2 << endl;
 				const char *c_command = pwm_command.c_str();
 				system(c_command);
