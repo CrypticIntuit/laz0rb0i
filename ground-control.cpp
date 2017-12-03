@@ -190,7 +190,7 @@ int main() {
 
 		// STRING
 		else if (command == "string") {
-			char* charArray = placeholder(arg); // Yitharth's function (to be added later)
+			char* charArray = stoch(arg); // Yitharth's function (to be added later)
 			int index = 0;
 			int speedA;
 			int speedB;

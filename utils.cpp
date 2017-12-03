@@ -11,7 +11,7 @@ int* getArgs(string input, string delim){
 	return args;
 }
 
-char* Function(string x){
+char* stoch(string x){
     char* array = new char[x.length() + 1];
     for (int i =0; i<x.length();i++)
         array[i] = x[i];
