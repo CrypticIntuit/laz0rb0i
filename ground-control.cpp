@@ -3,6 +3,9 @@
 #include <sstream>
 #include <stdlib.h>
 #include <stdio.h>
+
+#include "utils.h"
+#include "lazorboi.h"
 using namespace std;
 
 const int DIR_CW = 0;
