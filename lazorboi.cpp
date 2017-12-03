@@ -10,7 +10,7 @@ bool isValid(string input){
     return true;
 }
 
-int ProcessDir(char input){
+int getDir(char input){
     int value = (int) input;
     int count = 0;
     while(value){
@@ -22,7 +22,7 @@ int ProcessDir(char input){
     return dir;
 }
 
-int ProcessSpeed(char input){
+int getSpeed(char input){
     int value = toupper(input);
     int posInAlphabet = abs(value - 64);
 

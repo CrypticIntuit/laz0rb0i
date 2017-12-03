@@ -199,10 +199,10 @@ int main() {
 			string strArgB;
 			stringstream convertB;
 			while (charArray[index + 1] != '\0') {
-				dirA = getdir(charArray[index]); // Omar's function (to be added later)
-				speedA = getspeed(charArray[index]); // ^^
-				dirB = getdir(charArray[index + 1]); // ^^
-				speedB = getspeed(charArray[index + 1]); // ^^
+				dirA = getDir(charArray[index]);
+				speedA = getSpeed(charArray[index]);
+				dirB = getDir(charArray[index + 1]);
+				speedB = getSpeed(charArray[index + 1]);
 				convertA << speedA;
 				strArgA = convertA.str();
 				convertB << speedB;
