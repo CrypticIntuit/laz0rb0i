@@ -18,3 +18,35 @@ char* stoch(string x){
 	array[x.length()] = '\0';
 	return array;
 }
+
+enum STATE {START, DIGIT, TERMINAL};
+int stoint(string x){
+	char* input = stoch(x);
+	int output = 0;
+
+	STATE state = START;
+	char in;
+    cout << endl;
+	for (int i = 0; state != TERMINAL; i++){
+		in = input[i];
+
+		switch (state){
+		case START:
+			if (in >= '0' && in <= '9'){
+				output = (int) (in - '0');
+				state = DIGIT;
+			}
+			else
+				return -1;
+			break;
+		case DIGIT:
+			if (in >= '0' && in <= '9')
+				output = output * 10 + (int) (in - '0');
+			else if (in == '\0')
+				return output;
+			else
+				return -1;
+			break;
+		}
+	}
+}

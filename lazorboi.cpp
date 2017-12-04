@@ -3,7 +3,6 @@
 bool isValid(string input){
     for (int i = 0; i < input.length(); i++){
         char temp = toupper(input[i]);
-        cout << "uppered: " << temp << endl;
         if (!(temp >= 'A' && temp <= 'Z') ^ temp == ' ')
             return false;
     }
