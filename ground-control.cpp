@@ -280,9 +280,9 @@ int main() {
 					cout << "Invalid amplitude. Make sure its an integer and only includes digits.";
 			}while (amp2 == -1);
 
-			for (int i = 0; i < 99999999999; i++) {
-				speedA = amp1 * sin(i);
-				speedB = amp2 * cos(i);
+			for (int i = 0; i < 9999999; i++) {
+				speedA = amp1 * sin(0.1 * i);
+				speedB = -amp2 * cos(0.2 * i);
 				if (speedA < 0){
 					speedA = abs(speedA);
 					dirA = 0;
@@ -305,33 +305,29 @@ int main() {
 				strArgB = convertB.str();
 
 				if (dirA == 0) {
-					system("fast-gpio set 0 1");
 					system("fast-gpio set 1 0");
-					dirA = 1;
 				} else {
-					system("fast-gpio set 0 0");
 					system("fast-gpio set 1 1");
-					dirA = 0;
 				}
 				if (dirB == 0) {
 					system("fast-gpio set 19 0");
-					system("fast-gpio set 18 1");
-					dirB = 1;
 				} else {
 					system("fast-gpio set 19 1");
-					system("fast-gpio set 18 0");
-					dirB = 0;
 				}
 
-				string pwm_commandA = "fast-gpio pwm 3 6000 " + strArgA;
+				string pwm_commandA = "fast-gpio pwm 3 14000 " + strArgA;
 				cout << "Setting speed of motor 1 to " << speedA << endl;
 				const char *c_commandA = pwm_commandA.c_str();
 				system(c_commandA);
-				string pwm_commandB = "fast-gpio pwm 2 6000 " + strArgB;
+				string pwm_commandB = "fast-gpio pwm 2 14000 " + strArgB;
 				cout << "Setting speed of motor 1 to " << speedB << endl;
 				const char *c_commandB = pwm_commandB.c_str();
 				system(c_commandB);
-				usleep(50000);
+				usleep(500000);
+
+				system("fast-gpio pwm 2 14000 0");
+				system("fast-gpio pwm 3 14000 0");
+				usleep(500000);
 			}
 		}
 
