@@ -293,10 +293,10 @@ int main() {
 					dirA = 1;
 				if (speedB < 0) {
 					speedB = abs(speedB);
-					dirB = 0;
+					dirB = 1;
 				}
 				else
-					dirB = 1;
+					dirB = 0;
 
 				speedA = map(speedA, 0, amp1, 10, 100);
 				speedB = map(speedB, 0, amp2, 10, 100);
