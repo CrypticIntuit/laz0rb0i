@@ -2,7 +2,7 @@ int map(int value, int preLowerBound, int preUpperbound, int postLowerBound, int
 	return (value - preLowerBound) * (postUpperbound - postLowerBound) / (preUpperbound - preLowerBound) + postLowerBound;
 }
 
-string* getArgs(string input, string delim){
+string* getArgs(string input, string delim) {
 	int delimIndex = 0;
 	string *args = new string [2];
 	delimIndex = input.find(delim);
@@ -11,7 +11,7 @@ string* getArgs(string input, string delim){
 	return args;
 }
 
-char* stoch(string x){
+char* stoch(string x) {
 	char* array = new char[x.length() + 1];
 	for (int i =0; i<x.length(); i++)
 		array[i] = x[i];
@@ -26,13 +26,13 @@ int stoint(string x){
 
 	STATE state = START;
 	char in;
-    cout << endl;
-	for (int i = 0; state != TERMINAL; i++){
+	cout << endl;
+	for (int i = 0; state != TERMINAL; i++) {
 		in = input[i];
 
-		switch (state){
+		switch (state) {
 		case START:
-			if (in >= '0' && in <= '9'){
+			if (in >= '0' && in <= '9') {
 				output = (int) (in - '0');
 				state = DIGIT;
 			}

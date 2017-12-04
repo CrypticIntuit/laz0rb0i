@@ -196,7 +196,7 @@ int main() {
 			string userIn;
 			getline(cin, userIn);
 			char* charArray = stoch(userIn);
-			if (!isValid(charArray)){
+			if (!isValid(charArray)) {
 				cout << "String entered is invalid. Make sure it only includes alphabetical characters and spaces." << endl;
 				continue;
 			}
@@ -262,34 +262,34 @@ int main() {
 			string strArgB;
 			stringstream convertB;
 
-			do{
+			do {
 				cout << "Please input an integer amplitude: ";
 				cin >> amp1str;
 				amp1 = stoint(amp1str);
 
 				if (amp1 == -1)
 					cout << "Invalid amplitude. Make sure its an integer and only includes digits." << endl;
-			}while (amp1 == -1);
+			} while (amp1 == -1);
 
-			do{
+			do {
 				cout << "Please input another integer amplitude: ";
 				cin >> amp2str;
 				amp2 = stoint(amp2str);
 
 				if (amp2 == -1)
 					cout << "Invalid amplitude. Make sure its an integer and only includes digits.";
-			}while (amp2 == -1);
+			} while (amp2 == -1);
 
 			for (int i = 0; i < 9999999; i++) {
 				speedA = amp1 * sin(0.1 * i);
 				speedB = -amp2 * cos(0.2 * i);
-				if (speedA < 0){
+				if (speedA < 0) {
 					speedA = abs(speedA);
 					dirA = 0;
 				}
 				else
 					dirA = 1;
-				if (speedB < 0){
+				if (speedB < 0) {
 					speedB = abs(speedB);
 					dirB = 0;
 				}
