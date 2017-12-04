@@ -196,8 +196,10 @@ int main() {
 			string userIn;
 			getline(cin, userIn);
 			char* charArray = stoch(userIn);
-			if (!isValid(charArray)) {
+			while (!isValid(charArray)) {
 				cout << "String entered is invalid. Make sure it only includes alphabetical characters and spaces." << endl;
+				getline(cin, userIn);
+				charArray = stoch(userIn);
 				continue;
 			}
 			int index = 0;
@@ -305,14 +307,22 @@ int main() {
 				strArgB = convertB.str();
 
 				if (dirA == 0) {
+					system("fast-gpio set 0 1");
 					system("fast-gpio set 1 0");
+					dirA = 1;
 				} else {
+					system("fast-gpio set 0 0");
 					system("fast-gpio set 1 1");
+					dirA = 0;
 				}
 				if (dirB == 0) {
 					system("fast-gpio set 19 0");
+					system("fast-gpio set 18 1");
+					dirB = 1;
 				} else {
 					system("fast-gpio set 19 1");
+					system("fast-gpio set 18 0");
+					dirB = 0;
 				}
 
 				string pwm_commandA = "fast-gpio pwm 3 14000 " + strArgA;
