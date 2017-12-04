@@ -350,7 +350,7 @@ int main() {
 				}
 			} while (amp2 == -1);
 
-			for (int i = 0; i < 9999999; i++) {
+			for (int i = 0; i < 100; i++) {
 				time_t rawtime;
 				struct tm * timeinfo;
 				time (&rawtime);
