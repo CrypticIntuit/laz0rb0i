@@ -333,7 +333,7 @@ int main() {
 				cout << "Setting speed of motor 1 to " << speedB << endl;
 				const char *c_commandB = pwm_commandB.c_str();
 				system(c_commandB);
-				usleep(500000);
+				usleep(1000000);
 
 				system("fast-gpio pwm 2 14000 0");
 				system("fast-gpio pwm 3 14000 0");
