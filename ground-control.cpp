@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <cmath>
+#include <fstream>
+#include <time.h>
 using namespace std;
 
 #include "utils.cpp"
@@ -33,9 +35,9 @@ int main() {
 	system("fast-gpio set 19 1");
 	system("fast-gpio set 18 0");
 
-	char *filename = 'laz0rb0i.log';
+	const char* filename = "lazorboi.log";
 	ofstream outfile;
-	outfile.open(newname);
+	outfile.open(filename);
 	if(!outfile.is_open()) {
 		return -1;
 	}
@@ -89,7 +91,7 @@ int main() {
 			struct tm * timeinfo;
 			time (&rawtime);
 			timeinfo = localtime (&rawtime);
-			outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Called 'help' command" << '\n';
+			outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Called 'help' command" << '\n';
 		}
 
 		// RUN
@@ -99,18 +101,18 @@ int main() {
 			time (&rawtime);
 			timeinfo = localtime (&rawtime);
 			if (arg == "1") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Ran motor 1" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Ran motor 1" << '\n';
 				system("fast-gpio set 2 1");
 			} else if (arg == "2") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Ran motor 2" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Ran motor 2" << '\n';
 				system("fast-gpio set 3 1");
 			} else if (arg == "all") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Ran all motors" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Ran all motors" << '\n';
 				system("fast-gpio set 2 1");
 				system("fast-gpio set 3 1");
 			} else {
 				cout << "Usage: run <motor_number>" << endl;
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Incorrect usage of command 'run'" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Incorrect usage of command 'run'" << '\n';
 			}
 		}
 
@@ -121,7 +123,7 @@ int main() {
 			time (&rawtime);
 			timeinfo = localtime (&rawtime);
 			if (arg == "1") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Reversed motor 1" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Reversed motor 1" << '\n';
 				if (dirB == 0) {
 					system("fast-gpio set 0 1");
 					system("fast-gpio set 1 0");
@@ -132,7 +134,7 @@ int main() {
 					dirB = 0;
 				}
 			} else if (arg == "2") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Reversed motor 2" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Reversed motor 2" << '\n';
 				if (dirA == 0) {
 					system("fast-gpio set 19 0");
 					system("fast-gpio set 18 1");
@@ -143,7 +145,7 @@ int main() {
 					dirA = 0;
 				}
 			} else if (arg == "all") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Reversed all motors" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Reversed all motors" << '\n';
 				if (dirB == 0) {
 					system("fast-gpio set 0 1");
 					system("fast-gpio set 1 0");
@@ -164,7 +166,7 @@ int main() {
 				}
 			} else {
 				cout << "Usage: reverse <motor_number>" << endl;
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Incorrect usage of command 'reverse'" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Incorrect usage of command 'reverse'" << '\n';
 			}
 		}
 
@@ -181,17 +183,17 @@ int main() {
 			strArg = convert.str();
 
 			if (arg == "1") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Set speed of motor 1 to " << arg2 << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Set speed of motor 1 to " << arg2 << '\n';
 				string pwm_command = "fast-gpio pwm 2 6000 " + strArg;
 				const char *c_command = pwm_command.c_str();
 				system(c_command);
 			} else if (arg == "2") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Set speed of motor 2 to " << arg2 << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Set speed of motor 2 to " << arg2 << '\n';
 				string pwm_command = "fast-gpio pwm 3 6000 " + arg2;
 				const char *c_command = pwm_command.c_str();
 				system(c_command);
 			} else if (arg == "all") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Set all motor speeds to " << arg2 << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Set all motor speeds to " << arg2 << '\n';
 				string pwm_command1 = "fast-gpio pwm 2 6000 " + arg2;
 				string pwm_command2 = "fast-gpio pwm 3 6000 " + arg2;
 				const char *c_command1 = pwm_command1.c_str();
@@ -200,7 +202,7 @@ int main() {
 				system(c_command2);
 			} else {
 				cout << "Usage: speed <motor_number> <speed>" << endl;
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Incorrect usage of command 'speed'" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Incorrect usage of command 'speed'" << '\n';
 			}
 		}
 
@@ -211,18 +213,18 @@ int main() {
 			time (&rawtime);
 			timeinfo = localtime (&rawtime);
 			if (arg == "1") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Stopped motor 1" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Stopped motor 1" << '\n';
 				system("fast-gpio set 2 0");
 			} else if (arg == "2") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Stopped motor 2" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Stopped motor 2" << '\n';
 				system("fast-gpio set 3 0");
 			} else if (arg == "all") {
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Stopped all motors" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Stopped all motors" << '\n';
 				system("fast-gpio set 2 0");
 				system("fast-gpio set 3 0");
 			} else {
 				cout << "Usage: stop <motor_number>" << endl;
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Incorrect usage of command 'stop'" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Incorrect usage of command 'stop'" << '\n';
 			}
 		}
 
@@ -238,7 +240,7 @@ int main() {
 				time (&rawtime);
 				timeinfo = localtime (&rawtime);
 				cout << "String entered is invalid. Make sure it only includes alphabetical characters and spaces." << endl;
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Incorrect usage of command 'string'" << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Incorrect usage of command 'string'" << '\n';
 				getline(cin, userIn);
 				charArray = stoch(userIn);
 				continue;
@@ -247,7 +249,7 @@ int main() {
 			struct tm * timeinfo;
 			time (&rawtime);
 			timeinfo = localtime (&rawtime);
-			outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Started 'string' command motor cycle" << '\n';
+			outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Started 'string' command motor cycle" << '\n';
 			int index = 0;
 			int speedA;
 			int speedB;
@@ -269,33 +271,33 @@ int main() {
 				convertB << speedB;
 				strArgB = convertB.str();
 				if (dirA == 0) {
-					outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'string' automatically reversed motor 2" << '\n';
+					outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'string' automatically reversed motor 2" << '\n';
 					system("fast-gpio set 0 1");
 					system("fast-gpio set 1 0");
 					dirA = 1;
 				} else {
-					outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'string' automatically reversed motor 2" << '\n';
+					outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'string' automatically reversed motor 2" << '\n';
 					system("fast-gpio set 0 0");
 					system("fast-gpio set 1 1");
 					dirA = 0;
 				}
 				if (dirB == 0) {
-					outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'string' automatically reversed motor 1" << '\n';
+					outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'string' automatically reversed motor 1" << '\n';
 					system("fast-gpio set 19 0");
 					system("fast-gpio set 18 1");
 					dirB = 1;
 				} else {
-					outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'string' automatically reversed motor 1" << '\n';
+					outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'string' automatically reversed motor 1" << '\n';
 					system("fast-gpio set 19 1");
 					system("fast-gpio set 18 0");
 					dirB = 0;
 				}
 				string pwm_commandA = "fast-gpio pwm 3 6000 " + strArgA;
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'string' automatically set speed of motor 2 to " << speedA << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'string' automatically set speed of motor 2 to " << speedA << '\n';
 				const char *c_commandA = pwm_commandA.c_str();
 				system(c_commandA);
 				string pwm_commandB = "fast-gpio pwm 2 6000 " + strArgB;
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'string' automatically set speed of motor 1 to " << speedB << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'string' automatically set speed of motor 1 to " << speedB << '\n';
 				const char *c_commandB = pwm_commandB.c_str();
 				system(c_commandB);
 				usleep(2000000);
@@ -305,6 +307,7 @@ int main() {
 
 		// SINUSOID
 		else if (command == "sinusoid") {
+			outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Started 'sinusoid' command motor cycle" << '\n';
 			string amp1str;
 			string amp2str;
 			int amp1;
@@ -329,7 +332,7 @@ int main() {
 					time (&rawtime);
 					timeinfo = localtime (&rawtime);
 					cout << "Invalid amplitude. Make sure its an integer and only includes digits." << endl;
-					outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Incorrect usage of command 'sinusoid'" << '\n';
+					outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Incorrect usage of command 'sinusoid'" << '\n';
 				}
 			} while (amp1 == -1);
 
@@ -343,7 +346,7 @@ int main() {
 				timeinfo = localtime (&rawtime);
 				if (amp2 == -1) {
 					cout << "Invalid amplitude. Make sure its an integer and only includes digits.";
-					outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Incorrect usage of command 'sinusoid'" << '\n';
+					outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Incorrect usage of command 'sinusoid'" << '\n';
 				}
 			} while (amp2 == -1);
 
@@ -378,32 +381,32 @@ int main() {
 				if (dirA == 0) {
 					system("fast-gpio set 0 1");
 					system("fast-gpio set 1 0");
-					outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'sinusoid' automatically reversed motor 2" << '\n';
+					outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'sinusoid' automatically reversed motor 2" << '\n';
 					dirA = 1;
 				} else {
 					system("fast-gpio set 0 0");
 					system("fast-gpio set 1 1");
-					outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'sinusoid' automatically reversed motor 2" << '\n';
+					outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'sinusoid' automatically reversed motor 2" << '\n';
 					dirA = 0;
 				}
 				if (dirB == 0) {
 					system("fast-gpio set 19 0");
 					system("fast-gpio set 18 1");
-					outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'sinusoid' automatically reversed motor 1" << '\n';
+					outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'sinusoid' automatically reversed motor 1" << '\n';
 					dirB = 1;
 				} else {
 					system("fast-gpio set 19 1");
 					system("fast-gpio set 18 0");
-					outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'sinusoid' automatically reversed motor 1" << '\n';
+					outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'sinusoid' automatically reversed motor 1" << '\n';
 					dirB = 0;
 				}
 
 				string pwm_commandA = "fast-gpio pwm 3 14000 " + strArgA;
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'sinusoid' automatically set speed of motor 2 to " << speedA << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'sinusoid' automatically set speed of motor 2 to " << speedA << '\n';
 				const char *c_commandA = pwm_commandA.c_str();
 				system(c_commandA);
 				string pwm_commandB = "fast-gpio pwm 2 14000 " + strArgB;
-				outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "'sinusoid' automatically set speed of motor 2 to " << speedB << '\n';
+				outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "'sinusoid' automatically set speed of motor 2 to " << speedB << '\n';
 				const char *c_commandB = pwm_commandB.c_str();
 				system(c_commandB);
 				usleep(1000000);
@@ -420,10 +423,11 @@ int main() {
 			struct tm * timeinfo;
 			time (&rawtime);
 			timeinfo = localtime (&rawtime);
-			outfile << "[" timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << time_info->tm_sec << "] " << "Quit program" << '\n';
+			outfile << "[" << timeinfo->tm_hour << ":" << timeinfo->tm_min << ":" << timeinfo->tm_sec << "] " << "Quit program" << '\n';
 			system("fast-gpio set 2 0");
 			system("fast-gpio set 3 0");
 			break;
 		}
 	}
+	outfile.close()
 }

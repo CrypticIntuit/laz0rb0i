@@ -3,7 +3,7 @@
 bool isValid(string input) {
 	for (int i = 0; i < input.length(); i++) {
 		char temp = toupper(input[i]);
-		if (!(temp >= 'A' && temp <= 'Z') ^ temp == ' ')
+		if (!(temp >= 'A' && temp <= 'Z') ^ (temp == ' '))
 			return false;
 	}
 	return true;
