@@ -1,8 +1,11 @@
-# **Lazorb0i**
+# **Laz0rb0i**
 
-Lazorboi is an embedded system that performs a lazer show based on frequency from audio signals.
+Laz0rb0i is an embedded system that performs an elegant laser show based on a multitude of inputs.
 
-Currently, there is a functional command-line tool that allows the user to control two motors with digital input.
+In order to control laz0rb0i, there is a command-line tool **(ground-control)** that allows the user to control two motors with digital input. In order to use this tool, you must compile it using your favourite cpp compiler and run the executable.
+
+Currently, the implemented functionality supports input in the form of strings or sinusoidal functions.
+The aim is to develop a Fast-Fourier Transform algorithm in order to be able to convert real-time audio streams into laser displays.
 
 The materials used in this project include:
 * (Onion) Omega Power Dock 2
@@ -11,6 +14,8 @@ The materials used in this project include:
 * Two 6V DC motors
 * Two mirrors
 * Power source
+
+For the complete description, along with instructions for building laz0rb0i, please refer to the [**laz0rb0i report**](https://github.com/CrypticEskimo/laz0rb0i/blob/master/laz0rb0i_report.pdf).
 
 ## Omega2
 
