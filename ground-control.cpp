@@ -9,6 +9,7 @@
 #include <time.h>
 using namespace std;
 
+// Functinality includes
 #include "utils.cpp"
 #include "lazorboi.cpp"
 
@@ -35,7 +36,7 @@ int main() {
 	system("fast-gpio set 19 1");
 	system("fast-gpio set 18 0");
 
-	const char* filename = "lazorboi.log";
+	const char* filename = "laz0rb0i.log";
 	ofstream outfile;
 	outfile.open(filename);
 	if(!outfile.is_open()) {
